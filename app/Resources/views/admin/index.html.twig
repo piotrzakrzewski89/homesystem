@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1 class="mt-5">Panel Administracyjny</h1>
+<h3 class="mt-5">Użytkownicy</h3>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>                        
+                    <th scope="col">username</th>
+                    <th scope="col">email</th>
+                    <th scope="col">enabled</th>
+                    <th scope="col">lastLogin</th>                                                     
+                    <th scope="col">roles</th>                                                    
+                </tr> 
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr scope="row">                                                                          
+                    <td><a href="{{ path('admin_details', {'id': user.id}) }}">{{ user.Username }}</td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.Enabled }}</td>
+                    <td>{{ user.LastLogin|date("d-m-Y H:i") }}</td>
+                    <td>{{ user.Roles|join(', ')}}</td>                                  
+                </tr>
+			{% endfor %}
+            </tbody>
+	    </table>
+
+{% endblock %}

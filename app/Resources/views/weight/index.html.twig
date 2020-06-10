@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+				<div>
+                    <h1 class="mt-5">Waga</h1>
+                    <a href="{{ path('weight_new') }}" class="btn btn-primary">Dodaj wage</a>
+                    <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>                        
+                            <th scope="col">id</th>
+                            <th scope="col">user</th>
+                            <th scope="col">weight</th>
+                            <th scope="col">adipose_tissue</th>
+                            <th scope="col">water</th>
+                            <th scope="col">muscle_tissue</th>
+                            <th scope="col">bone_tissue</th>
+                            <th scope="col">kcal</th>
+                            <th scope="col">stamp</th>                      
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        {% for w in weight %}
+                            <tr scope="row">                                                               
+                                <td>{{ w.Id }}</td>
+                                <td>{{ w.User }}</td>
+                                <td>{{ w.Weight }}kg</td>
+                                <td>{{ w.AdiposeTissue }}%</td>
+                                <td>{{ w.Water }}%</td>
+                                <td>{{ w.MuscleTissue }}%</td>
+                                <td>{{ w.BoneTissue }}%</td>
+                                <td>{{ w.Kcal }}kcal</td>
+                                <td>{{ w.Stamp|date("d-m-Y H:i") }}</td>
+                                
+                            </tr>
+				        {% endfor %}
+                    </tbody>
+			     </table>
+                </div>
+
+{% endblock %}

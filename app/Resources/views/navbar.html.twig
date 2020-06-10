@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">>
+        <a class="navbar-brand" href="{{ path('main') }}">HomeSystem3</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item {{ app.request.get('_route') == 'vpn' ? 'active' }}">
+            <a class="nav-link" href="{{ path('vpn') }}">VPN</a>
+          </li>
+          <li class="nav-item {{ app.request.get('_route') == 'messuringrooms' ? 'active' }}">
+           <a class="nav-link" href="{{ path('messuringrooms') }}">Pomiary</a>
+          </li>
+          <li class="nav-item {{ app.request.get('_route') == 'bicycle' ? 'active' }}">
+           <a class="nav-link" href="{{ path('bicycle') }}">Rower</a>
+          </li>
+          <li class="nav-item {{ app.request.get('_route') == 'weight' ? 'active' }}">
+            <a class="nav-link" href="{{ path('weight') }}">Waga</a>
+          </li>
+          <li class="nav-item {{ app.request.get('_route') == 'cars' ? 'active' }}">
+            <a class="nav-link" href="{{ path('cars') }}">Samochód</a>
+          </li>
+      </ul> 
+      <ul class="navbar-nav navbar-right">
+        {% if is_granted('ROLE_USER') %}
+          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+         <div class="dropdown">
+         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{  app.user.username }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
+           <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}">Konto</a>
+           {% if is_granted('ROLE_ADMIN') %}
+           <a class="dropdown-item" href="{{ path('admin') }}">Admin</a>
+           {% endif %}
+            <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Wyloguj</a>            
+        </div>
+        </div>
+          {% endif %} 
+        
+        {% else %}
+          <li class="nav-item {{ app.request.get('_route') == 'fos_user_registration_register' ? 'active' }}">
+            <a class="nav-link" href="{{ path('fos_user_registration_register') }}"><span class="glyphicon glyphicon-user"></span>Rejestracja</a>
+          </li>
+          <li class="nav-item {{ app.request.get('_route') == 'fos_user_security_login' ? 'active' }}">
+            <a class="nav-link" href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span>Logowanie</a>
+          </li>
+        {% endif %}
+      </ul> 
+    </div>
+</nav>

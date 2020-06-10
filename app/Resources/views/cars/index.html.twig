@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+				<div>
+                    <h1 class="mt-5">Samochód i spalanie</h1>
+                     {{ form_start(formsearch) }}
+                        {{ form_errors(formsearch) }}
+                    {{ form_end(formsearch) }}
+                    <a href="{{ path('cars_new') }}" class="btn btn-primary">Dodaj Pojazd</a>
+                    {% if cars == null %}
+                    {% else %}
+                    <h1> {{ cars.CarBrand}} {{ cars.CarModel}}</h1>
+                    <h2>Vin: {{ cars.Vin}}, Pojemność Silnika: {{ cars.EngineCapacity}}, Moc Silnika: {{ cars.Horsepower}}km, Moment Obrotowy: {{ cars.Torque}}nm, Rok Produkcji:{{ cars.YearProduction}}r.</h2>
+                    
+
+                    <a href="{{ path('carconsumtpion_new') }}" class="btn btn-primary">Dodaj Przejazd</a>
+                    <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>                        
+                            <th scope="col">id</th>
+                            <th scope="col">user</th>
+                            <th scope="col">cost_type</th>
+                            <th scope="col">fuel_type</th>
+                            <th scope="col">trip_odometer</th>
+                            <th scope="col">odometer</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">cost</th>
+                            <th scope="col">fueling_type</th>
+                            <th scope="col">tires</th>
+                            <th scope="col">driving_style</th>
+                            <th scope="col">bc_consumption</th>
+                            <th scope="col">bc_avg_speed</th>
+                            <th scope="col">ac</th>
+                            <th scope="col">stamp</th>                       
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        {% for c in carconsumption %}
+                            <tr scope="row">                                                               
+                                <td>{{ c.Id }}</td>
+                                <td>{{ c.User }}</td>
+                                <td>{{ c.CostType }}</td>
+                                <td>{{ c.FuelType }}</td>
+                                <td>{{ c.TripOdometer }}</td>
+                                <td>{{ c.Odometer }}</td>
+                                <td>{{ c.Quantity }}</td>
+                                <td>{{ c.Cost }}</td>
+                                <td>{{ c.FuelingType }}</td>
+                                <td>{{ c.Tires }}</td>
+                                <td>{{ c.DrivingStyle }}</td>
+                                <td>{{ c.BcConsumption }}</td>
+                                <td>{{ c.BcAvgSpeed}}</td>
+                                <td>{{ c.Ac}}</td>
+                                <td>{{ c.Stamp|date("d-m-Y H:i") }}</td>
+                                
+                            </tr>
+				        {% endfor %}
+                    </tbody>
+			     </table>
+                 {% endif %}
+                </div>            
+{% endblock %}

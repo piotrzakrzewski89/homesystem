@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div>
+    <h1 class="mt-5">Log OpenVPN</h1>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>                        
+                <th scope="col">common_name</th>
+                    <th scope="col">virtual_address</th>
+                    <th scope="col">real_address</th>
+                    <th scope="col">bytes_received</th>
+                    <th scope="col">bytes_sent</th>
+                    <th scope="col">connected_since</th>
+                    <th scope="col">last_ref</th>
+                    <th scope="col">last_online</th>
+                    <th scope="col">status</th>                           
+                </tr> 
+            </thead>
+            <tbody>
+            {% for vpn in openvpnlog %}
+                <tr scope="row">                                                                          
+                    <td>{{ vpn.CommonName }}</td>
+                    <td>{{ vpn.VirtualAddress }}</td>
+                    <td>{{ vpn.RealAddress }}</td>
+                    <td>{{ vpn.BytesReceived }}</td>
+                    <td>{{ vpn.BytesSent }}</td>
+                    <td>{{ vpn.ConnectedSince|date("d-m-Y H:i") }}</td>
+                    <td>{{ vpn.LastRef|date("d-m-Y H:i") }}</td>
+                    <td>{{ vpn.LastOnline|date("d-m-Y H:i") }}</td>
+                    {% if vpn.status == 'ONLINE' %}                                
+                    <td class="text-success">{{ vpn.Status }}</td>
+                    {% else %}
+                    <td class="text-danger">{{ vpn.Status }}</td>
+                    {% endif %}                   
+                </tr>
+			{% endfor %}
+            </tbody>
+	    </table>
+</div>
+{% endblock %}

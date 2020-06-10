@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+				<div>
+                    <h1 class="mt-5">Rower</h1>
+                    <a href="{{ path('bicycle_new') }}" class="btn btn-primary">Dodaj Przejazd</a>
+                    <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>                        
+                            <th scope="col">id</th>
+                            <th scope="col">user</th>
+                            <th scope="col">trip</th>
+                            <th scope="col">trip_time</th>
+                            <th scope="col">average_speed</th>
+                            <th scope="col">max_speed</th>
+                            <th scope="col">total_distance</th>
+                            <th scope="col">total_time</th>
+                            <th scope="col">date_trip</th>
+                            <th scope="col">stamp</th>
+                            
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        {% for bic in bicycle %}
+                            <tr scope="row">                                                                                      
+                                <td>{{ bic.Id }}</td>
+                                <td>{{ bic.User }}</td>
+                                <td>{{ bic.Trip }}km</td>
+                                <td>{{ bic.TripTime|date("H:i:s") }}</td>
+                                <td>{{ bic.AverageSpeed }}km/h</td>
+                                <td>{{ bic.MaxSpeed }}km/h</td>
+                                <td>{{ bic.TotalDistance }}km</td>
+                                <td>{{ bic.TotalTime|date("H:i:s") }}</td>                       
+                                <td>{{ bic.DateTrip|date("d-m-Y") }}</td>                       
+                                <td>{{ bic.Stamp|date("d-m-Y H:i") }}</td>  
+ 
+                            </tr>
+				        {% endfor %}
+                    </tbody>
+			     </table>
+                </div>
+
+{% endblock %}

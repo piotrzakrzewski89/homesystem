@@ -1,0 +1,6 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block body %}
+{% include "@FOSUser/Profile/show_content.html.twig" %}
+<a class="btn btn-primary" href="{{ path('fos_user_profile_edit') }}" role="button">Edycja Konta</a>
+<a class="btn btn-primary" href="{{ path('fos_user_change_password') }}" role="button">Edycja Hasła</a>
+{% endblock body %}

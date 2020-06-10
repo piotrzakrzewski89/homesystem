@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div>
+    <h1 class="mt-5">Obecna temperatura</h1>
+    <h3 class="mt-5">Temp: {{ messuring_rooms_current.Temp }}C  Wilgotność: {{ messuring_rooms_current.Humidity }}%  Data Pomiaru:  {{ messuring_rooms_current.stamp|date("d-m-Y H:i:s") }}</h3>
+    <br><br>
+    <h4>Wyszukaj po dacie</h4> 
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+                   
+        <div  class="form-group row">
+            {{ form_label(form.messuring_from, null, {"label_attr":{"class":"col-2 col-form-label"}}) }}
+            {{ form_errors(form.messuring_from) }}
+            <div  class="col-10">
+                {{ form_widget(form.messuring_from,{"attr": {"class": "form-control"}}) }}
+            </div>
+        </div>
+                    
+        <div  class="form-group row">
+            {{ form_label(form.messuring_to, null, {"label_attr":{"class":"col-2 col-form-label"}}) }}
+            {{ form_errors(form.messuring_to) }}
+            <div  class="col-10">
+            {{ form_widget(form.messuring_to, {"attr": {"class": "form-control", "type":"datatime-local"}}) }}
+            </div>
+        </div>
+        <div>
+            {{ form_widget(form.submit, {"attr": {"class": "col-lg-6 btn btn-primary"}}) }}
+         </div>
+        
+        {{ form_end(form) }}
+
+        <div>
+            <canvas id="temperature" width="200" height="100"></canvas>
+            <canvas id="humidity" width="200" height="100"></canvas>
+        </div>
+        <br><br>
+        <script src="{{asset('bundles/chartjs/dist/Chart.js')}}"></script>
+        <script>
+         new Chart(document.getElementById("temperature"), {
+                type: 'line',
+                    data: {
+                        labels: [{% for mr in messuring_rooms|reverse(true) %} '{{ mr.Stamp|date("H:i")}}', {% endfor %} ],
+                        datasets: [{  
+                            data: [{% for mr in messuring_rooms|reverse(true) %} {{ mr.Temp }}, {% endfor %}],
+                            label: "Raspberry",
+                            borderColor: "#3e95cd",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Temperatura'
+                        }    
+                    }
+                });
+
+                new Chart(document.getElementById("humidity"), {
+                type: 'line',
+                    data: {
+                        labels: [{% for mr in messuring_rooms|reverse(true) %} '{{ mr.Stamp|date("H:i")}}', {% endfor %} ],
+                        datasets: [{ 
+                            data: [{% for mr in messuring_rooms|reverse(true) %} {{ mr.Humidity }}, {% endfor %}],
+                            label: "Raspberry",
+                            borderColor: "#c45850",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Wilgotność'
+                        }
+                    }
+                });       
+                </script>
+{% endblock %}

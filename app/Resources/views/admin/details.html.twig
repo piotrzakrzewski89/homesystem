@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="mt-5">Użytkownik {{ user.Username }}</h1>
+<h3 class="mt-5">Email: {{ user.Email }}</h3>
+<h3 class="mt-5">Aktywny: {{ user.Enabled }}</h3>
+<h3 class="mt-5">Ostatnie logowanie: {{ user.LastLogin|date("d-m-Y H:i") }}</h3>
+<h3 class="mt-5">Uprawnienia: {{ user.Roles|join(', ')}} </h3>
+
+<a class="btn btn-primary" href="{{ path('admin_edit', {'id': user.id}) }}" role="button">Edycja</a>
+<a class="btn btn-danger" href="{{ path('admin') }}" role="button">Powrót</a>
+
+{% endblock %}
